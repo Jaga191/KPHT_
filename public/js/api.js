@@ -2,43 +2,49 @@
 
 // Automatically handles same-origin or localhost:3000
 const isLocalhost = window.location.hostname === 'localhost';
-export const API_BASE = isLocalhost ? 'http://localhost:3000/api' : '/api';
+export const API_BASE = isLocalhost ? 'http://localhost:3000' : '';
 
-export async function apiPost(path, data) {
-    try {
-        const res = await fetch(`${API_BASE}${path}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-
-        // Handle non-JSON error responses gracefully
-        const contentType = res.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            throw new Error('Invalid JSON response');
-        }
-
-        const result = await res.json();
-        return result;
-    } catch (err) {
-        console.error(`❌ POST ${path} failed:`, err);
-        return { error: 'Network or server error' };
-    }
+// ✅ Ensures correct route prefixing (avoids double `/api/api`)
+function normalizePath(path) {
+  return path.startsWith('/api') ? path : `/api${path}`;
 }
 
-export async function apiGet(path) {
-    try {
-        const res = await fetch(`${API_BASE}${path}`);
+// ✅ POST request handler
+export async function apiPost(path, data) {
+  const fullPath = normalizePath(path);
+  try {
+    const res = await fetch(`${API_BASE}${fullPath}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
 
-        const contentType = res.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            throw new Error('Invalid JSON response');
-        }
-
-        const result = await res.json();
-        return result;
-    } catch (err) {
-        console.error(`❌ GET ${path} failed:`, err);
-        return { error: 'Network or server error' };
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Invalid JSON response');
     }
+
+    return await res.json();
+  } catch (err) {
+    console.error(`❌ POST ${fullPath} failed:`, err);
+    return { error: 'Network or server error' };
+  }
+}
+
+// ✅ GET request handler
+export async function apiGet(path) {
+  const fullPath = normalizePath(path);
+  try {
+    const res = await fetch(`${API_BASE}${fullPath}`);
+
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Invalid JSON response');
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error(`❌ GET ${fullPath} failed:`, err);
+    return { error: 'Network or server error' };
+  }
 }

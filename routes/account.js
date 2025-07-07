@@ -1,10 +1,9 @@
-// routes/account.js
 const express = require('express');
 
 module.exports = (pool) => {
   const router = express.Router();
 
-  // Create New Account
+  // ✅ Create New Account
   router.post('/create-account', async (req, res) => {
     const {
       firstName, lastName, dob, gender, contact,
@@ -27,6 +26,31 @@ module.exports = (pool) => {
       res.status(200).json({ message: 'Account created successfully' });
     } catch (err) {
       res.status(500).json({ error: 'Failed to create account: ' + err.message });
+    }
+  });
+
+  // ✅ Fetch logged-in user info by contact (email)
+  router.get('/account/:contact', async (req, res) => {
+    const { contact } = req.params;
+
+    try {
+      const result = await pool.query(
+        `SELECT first_name, last_name, dob, contact FROM accounts WHERE contact = $1`,
+        [contact]
+      );
+
+      if (result.rows.length === 0) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const user = result.rows[0];
+      res.json({
+        fullName: `${user.first_name} ${user.last_name}`,
+        email: user.contact,
+        dob: user.dob
+      });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch user: ' + err.message });
     }
   });
 

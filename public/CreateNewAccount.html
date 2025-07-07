@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Create Account</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
+  <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -15,17 +15,18 @@
         <img src="KPH.jpg" alt="Logo" class="logo" />
       </div>
       <div class="login-box">
-        <form id="createAccountForm" onsubmit="event.preventDefault(); createAccount();">
+        <form id="createAccountForm">
+          
           <div class="form-group">
             <label for="firstName">FIRST NAME:</label>
             <div class="input-container">
-              <input type="text" id="firstName" placeholder="First Name" oninput="generateEmail()" />
+              <input type="text" id="firstName" placeholder="First Name" />
             </div>
           </div>
           <div class="form-group">
             <label for="lastName">LAST NAME:</label>
             <div class="input-container">
-              <input type="text" id="lastName" placeholder="Last Name" oninput="generateEmail()" />
+              <input type="text" id="lastName" placeholder="Last Name" />
             </div>
           </div>
           <div class="form-group">
@@ -114,5 +115,12 @@
       </div>
     </section>
   </div>
+
+  <script>
+    window.togglePassword = function (id) {
+      const field = document.getElementById(id);
+      field.type = field.type === 'password' ? 'text' : 'password';
+    };
+  </script>
 </body>
 </html>

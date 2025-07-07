@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Enquiry Form</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
   <div class="container">
@@ -15,25 +15,15 @@
         <img src="KPH.jpg" alt="Logo" class="logo" />
       </div>
       <div class="login-box">
-        <form id="enquiryFormElement" onsubmit="event.preventDefault(); submitForm('enquiryForm');">
+        <form id="enquiryForm">
+          
           <div class="form-group">
-            <label for="enquiryId">ENQUIRY ID:</label>
+            <label for="fullName">FULL NAME:</label>
             <div class="input-container">
-              <input type="text" id="enquiryId" readonly />
+              <input type="text" id="fullName" placeholder="Full Name" required />
             </div>
           </div>
-          <div class="form-group">
-            <label for="enquiryDate">DATE:</label>
-            <div class="input-container">
-              <input type="date" id="enquiryDate" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="enquiryFullName">FULL NAME:</label>
-            <div class="input-container">
-              <input type="text" id="enquiryFullName" placeholder="Full Name" />
-            </div>
-          </div>
+
           <div class="form-group phone-group">
             <label for="countryCode">PHONE NUMBER:</label>
             <div class="phone-input-container">
@@ -42,32 +32,36 @@
                 <option value="+1">USA (+1)</option>
                 <option value="+44">UK (+44)</option>
               </select>
-              <input type="text" id="enquiryPhone" placeholder="Phone Number" />
+              <input type="text" id="phone" placeholder="Phone Number" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="enquiryEmail">EMAIL ID:</label>
             <div class="input-container">
-              <input type="email" id="enquiryEmail" placeholder="Email ID" />
+              <input type="email" id="enquiryEmail" placeholder="Email ID" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="enquiryDob">STUDENT DATE OF BIRTH:</label>
             <div class="input-container">
-              <input type="date" id="enquiryDob" />
+              <input type="date" id="enquiryDob" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="course">COURSE OF ENQUIRY:</label>
             <div class="input-container">
-              <input type="text" id="course" placeholder="Course of Enquiry" />
+              <input type="text" id="course" placeholder="Course of Enquiry" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="source">SOURCE OF ENQUIRY:</label>
             <div class="input-container">
-              <select id="source">
-                <option value="" disabled selected>Select Source</option>
+              <select id="source" required>
+                <option value="">Select Source</option>
                 <option value="Walkin">Walkin</option>
                 <option value="Board">Board</option>
                 <option value="Add">Add</option>
@@ -76,11 +70,12 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="enquiryEducation">EDUCATION QUALIFICATION:</label>
+            <label for="education">EDUCATION QUALIFICATION:</label>
             <div class="input-container">
-              <select id="enquiryEducation">
-                <option value="" disabled selected>Select Education</option>
+              <select id="education" required>
+                <option value="">Select Education</option>
                 <option value="10th">10th</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Graduation">Graduation</option>
@@ -88,17 +83,19 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="passedOutYear">PASSED OUT YEAR:</label>
             <div class="input-container">
-              <input type="text" id="passedOutYear" placeholder="Passed Out Year" />
+              <input type="text" id="passedOutYear" placeholder="Passed Out Year" required />
             </div>
           </div>
+
           <div class="form-group">
             <label for="about">ABOUT:</label>
             <div class="input-container">
-              <select id="about">
-                <option value="" disabled selected>Select About</option>
+              <select id="about" required>
+                <option value="">Select About</option>
                 <option value="Fresher">Fresher</option>
                 <option value="Working in IT">Working in IT</option>
                 <option value="Working in Non-IT">Working in Non-IT</option>
@@ -106,22 +103,24 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="mode">MODE OF CLASSES:</label>
             <div class="input-container">
-              <select id="mode">
-                <option value="" disabled selected>Select Mode</option>
+              <select id="mode" required>
+                <option value="">Select Mode</option>
                 <option value="Online">Online</option>
                 <option value="Offline">Offline</option>
                 <option value="Both are fine">Both are fine</option>
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="batchTiming">BATCH TIMINGS:</label>
             <div class="input-container">
-              <select id="batchTiming">
-                <option value="" disabled selected>Select Batch Timing</option>
+              <select id="batchTiming" required>
+                <option value="">Select Batch Timing</option>
                 <option value="Morning">Morning</option>
                 <option value="Evening">Evening</option>
                 <option value="Weekend">Weekend</option>
@@ -129,35 +128,39 @@
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="language">LANGUAGE:</label>
             <div class="input-container">
-              <select id="language">
-                <option value="" disabled selected>Select Language</option>
+              <select id="language" required>
+                <option value="">Select Language</option>
                 <option value="Telugu">Telugu</option>
                 <option value="English">English</option>
               </select>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="demoStatus">ENQUIRY STATUS:</label>
+            <label for="status">ENQUIRY STATUS:</label>
             <div class="input-container">
-              <select id="demoStatus">
-                <option value="" disabled selected>Select Enquiry Status</option>
+              <select id="status" required>
+                <option value="">Select Enquiry Status</option>
                 <option value="Attended">Attended</option>
                 <option value="Un-attended">Un-attended</option>
               </select>
             </div>
           </div>
+
           <div class="form-group">
             <label for="comment">COMMENT:</label>
             <div class="input-container">
               <textarea id="comment" placeholder="Comment"></textarea>
             </div>
           </div>
+
           <div class="button-container">
             <button type="submit" class="signup-btn">SUBMIT</button>
-            <a href="select-form.html" class="signup-btn">BACK</a>
+            
           </div>
         </form>
       </div>

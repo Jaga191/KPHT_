@@ -1,6 +1,7 @@
 import { apiPost } from './api.js';
 import { showFirstLogin } from './ui.js';
 
+// ✅ Create New Account
 export async function createAccount() {
     const body = {
         firstName: document.getElementById('firstName').value,
@@ -16,13 +17,25 @@ export async function createAccount() {
         accessStudent: document.getElementById('studentAccess').checked
     };
 
-    // ✅ Prefix with /api
-    const result = await apiPost('/api/create-account', body);
+    // ✅ Use relative path only (no hardcoded /api/)
+    const result = await apiPost('/create-account', body);
 
     if (result.message) {
         alert('Account created!');
-        showFirstLogin();
+        showFirstLogin(); // Redirect or show login page
     } else {
         alert('Failed: ' + (result.error || 'Unknown'));
+    }
+}
+
+// ✅ Auto-generate email from first & last name
+export function generateEmail() {
+    const firstName = document.getElementById('firstName')?.value.trim().toLowerCase();
+    const lastName = document.getElementById('lastName')?.value.trim().toLowerCase();
+
+    if (firstName && lastName) {
+        const email = `${firstName}.${lastName}@kph.com`;
+        const contactInput = document.getElementById('contact');
+        if (contactInput) contactInput.value = email;
     }
 }

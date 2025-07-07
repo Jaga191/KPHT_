@@ -1,21 +1,32 @@
-// ui.js
+// 📁 public/js/ui.js
+
 export function hideAllSections() {
-    document.querySelectorAll('.form-section').forEach(sec => sec.style.display = 'none');
+  document.querySelectorAll('.form-section').forEach(sec => {
+    sec.style.display = 'none';
+  });
 }
 
 export function showFirstLogin() {
-    hideAllSections();
-    document.getElementById('firstLoginSection').style.display = 'block';
+  hideAllSections();
+  const section = document.getElementById('firstLoginSection');
+  if (section) section.style.display = 'block';
 }
 
 export function showChangePasswordPage() {
-    hideAllSections();
-    document.getElementById('changePasswordSection').style.display = 'block';
+  hideAllSections();
+  const section = document.getElementById('changePasswordSection');
+  if (section) section.style.display = 'block';
 }
 
 export function showFormsPage() {
-    hideAllSections();
-    document.getElementById('formsSection').style.display = 'block';
+  hideAllSections();
+  const section = document.getElementById('formsSection');
+  if (section) section.style.display = 'block';
 }
 
-// Add other UI switches...
+// ✅ Add more sections as needed
+export function showCreateAccountPage() {
+  hideAllSections();
+  const section = document.getElementById('createAccountSection');
+  if (section) section.style.display = 'block';
+}
